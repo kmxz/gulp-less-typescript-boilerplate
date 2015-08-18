@@ -1,12 +1,16 @@
+// module for DOM operations
+
 module Dom {
 
+  // remove all children of an element
   export var clearElement = function (element: Node): void {
     while (element.lastChild) {
       element.removeChild(element.lastChild);
     }
   };
 
-  export var setElement = function (element: HTMLElement, options: Object): void {
+  // set attributes and styles of an object
+  export var setElement = function (element: HTMLElement, options: {[name: string]: any}): void {
     Object.keys(options).forEach(function (i: string) {
       var v = options[i];
       if (i === 'style') {
@@ -26,8 +30,8 @@ module Dom {
   };
 
   type HTMLNode = HTMLElement | string;
-  type EventListener = (Event) => void;
 
+  // append children (nodes or text) to an element
   export var appendChildren = function (element: HTMLElement, children: Array<HTMLNode> | HTMLNode): void {
     var add = function (child: HTMLNode) {
       if (typeof child === 'string') {
@@ -45,6 +49,9 @@ module Dom {
     }
   };
 
+  type EventListener = (Event) => void;
+
+  // create an element with specific attributes/styles, children and event listeners; use tool to convert HTML to this: https://gist.github.com/kmxz/434034c2d09e87dbf373
   export var $ = function (tag: string, options?: any, children: Array<HTMLNode> | HTMLNode = [], listeners: {[type: string]: EventListener} = {}): HTMLElement {
     var element: HTMLElement = document.createElement(tag);
     if (options) {
@@ -70,7 +77,8 @@ module Dom {
     return element;
   };
 
-  export var getParent = function (node: Node, filter: (HTMLElement) => boolean): Node {
+  // get nearest ancestor matching certain criteria
+  export var getAncestor = function (node: Node, filter: (HTMLElement) => boolean): Node {
     var cur: Node = node;
     while (cur) {
       cur = cur.parentNode;
