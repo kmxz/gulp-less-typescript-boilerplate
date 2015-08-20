@@ -55,7 +55,7 @@ gulp.task('html', ['styles', 'ts'], function () {
 
 gulp.task('serve', ['styles', 'ts'], function () {
     browserSync.init({
-        server: ['.tmp', 'app']
+        server: ['.tmp', 'app', 'tools']
     });
     gulp.watch('app/styles/*.less', ['styles']);
     gulp.watch('app/scripts/*.ts', ['ts']);
