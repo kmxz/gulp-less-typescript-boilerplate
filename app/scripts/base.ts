@@ -15,8 +15,8 @@ module Base {
   };
 
   // map for a dictionary, using a callback taking the value and the key as parameters
-  export var map = function<T> (object: {[key: string]: T}, callback: (T, string) => void): {[key: string]: T} {
-    var returnVal = {};
+  export var map = function<T, S> (object: {[key: string]: T}, callback: (T, string) => S): {[key: string]: S} {
+    var returnVal:{[key: string]: S} = {};
     Object.keys(object).forEach(function (key: string) {
       returnVal[key] = callback(object[key], key);
     });
