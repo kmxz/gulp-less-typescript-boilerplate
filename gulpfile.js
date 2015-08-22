@@ -15,9 +15,9 @@ var useref = require('gulp-useref');
 
 gulp.task('styles', function () {
     return gulp.src('app/styles/*.less')
-        .pipe(less({style: 'compressed'}))
+        .pipe(less({style: 'compressed'}).on('error', function (e) { console.log(e.message); this.emit('end'); }))
         .pipe(autoprefixer({
-            browsers: ['> 1%', 'last 5 versions'],
+            browsers: ['> 1%', 'last 100 versions'],
             cascade: false
         }))
         .pipe(gulp.dest('.tmp/styles'))

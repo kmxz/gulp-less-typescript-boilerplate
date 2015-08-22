@@ -10,6 +10,11 @@ module Anim {
     }, 10);
   };
 
+  // force redraw
+  export var redraw = function (el) {
+    el.style.zIndex = el.clientWidth;
+  };
+
   // ease functions, from [0, 1] to [0, 1]
   export var ease: {[name: string]: (number) => number} = {
     cubicInOut: function (i: number): number {
