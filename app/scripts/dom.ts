@@ -52,7 +52,7 @@ module Dom {
   type EventListener = (Event) => void;
 
   // create an element with specific attributes/styles, children and event listeners; use tool to convert HTML to this: https://gist.github.com/kmxz/434034c2d09e87dbf373
-  export var $ = function (tag: string, options?: any, children: Array<HTMLNode> | HTMLNode = [], listeners: {[type: string]: EventListener} = {}): HTMLElement {
+  export var $ = function (tag: string, options?: any, children: Array<HTMLNode> | HTMLNode = [], listeners: {[type: string]: EventListener} | EventListener = {}): HTMLElement {
     var element: HTMLElement = document.createElement(tag);
     if (options) {
       if (options.constructor === Object) {
@@ -60,6 +60,9 @@ module Dom {
       } else {
         setElement(element, {'class': options})
       }
+    }
+    if (typeof listeners === 'function') {
+       listeners = { 'click': listeners };
     }
     Object.keys(listeners).forEach(function (k: string) {
       var v: EventListener | Array<EventListener> = listeners[k];
