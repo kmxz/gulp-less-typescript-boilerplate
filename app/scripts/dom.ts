@@ -32,7 +32,8 @@ module Dom {
   type HTMLNode = HTMLElement | string;
 
   // append children (nodes or text) to an element
-  export var appendChildren = function (element: HTMLElement, children: Array<HTMLNode> | HTMLNode): void {
+  export var appendChildren = function (element: HTMLElement, children: Array<HTMLNode> | HTMLNode, clearBefore?: boolean): void {
+    if (clearBefore) { clearElement(element); }
     var add = function (child: HTMLNode) {
       if (typeof child === 'string') {
         element.appendChild(document.createTextNode(child));
