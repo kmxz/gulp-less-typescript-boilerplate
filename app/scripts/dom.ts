@@ -73,7 +73,7 @@ module Dom {
         v.forEach(function (f) {
           element.addEventListener(k, f);
         });
-      } else {
+      } else if (child !== null) { // allow null elements to be skipped
         throw 'Unsupported listener.';
       }
     });
